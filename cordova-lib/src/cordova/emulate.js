@@ -39,7 +39,11 @@ module.exports = function emulate(options) {
             var cmd = path.join(projectRoot, 'platforms', platform, 'cordova', 'run');
             var args = ['--emulator'].concat(options.options);
 
-            return superspawn.spawn(cmd, args, {stdio: 'inherit', printCommand: true, chmod: true});
+            return superspawn.spawn(cmd, args, {
+                stdio: options.silent ? 'pipe' : 'inherit', // hide script output in silent mode
+                printCommand: !!options.verbose, // print command only if --verbose specified
+                chmod: true
+            });
         }));
     }).then(function() {
         return hooksRunner.fire('after_emulate', options);

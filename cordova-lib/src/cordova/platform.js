@@ -162,7 +162,7 @@ function addHelper(cmd, hooksRunner, projectRoot, targets, opts) {
                     }
                 }).then(function(args) {
                     var bin = path.join(platDetails.libDir, 'bin', cmd == 'add' ? 'create' : 'update');
-                    var copts = { stdio: 'inherit', chmod: true };
+                    var copts = { stdio: 'pipe', chmod: true };
                     if ('spawnoutput' in opts) {
                         copts = { stdio: opts.spawnoutput };
                     }
@@ -396,7 +396,7 @@ function check(hooksRunner, projectRoot) {
             var d = Q.defer(),
                 d_avail = Q.defer(),
                 d_cur = Q.defer();
-            add(h, scratch, [p], {spawnoutput: {stdio: 'ignore'}})
+            add(h, scratch, [p], {spawnoutput: {stdio: 'pipe'}})
             .then(function() {
                 superspawn.maybeSpawn(path.join(scratch, 'platforms', p, 'cordova', 'version'), [], { chmod: true })
                 .then(function(avail) {

@@ -36,8 +36,8 @@ module.exports = function clean(options) {
             events.emit('verbose', 'Running cleanup for ' + platform + ' platform.');
             var cmd = path.join(projectRoot, 'platforms', platform, 'cordova', 'clean');
             return superspawn.spawn(cmd, options.options, {
-                stdio: options.silent ? 'ignore' : 'inherit', // hide script output in silent mode
-                printCommand: !!options.verbose,              // print command only if --verbose specified
+                stdio: options.silent ? 'pipe' : 'inherit', // hide script output in silent mode
+                printCommand: !!options.verbose, // print command only if --verbose specified
                 chmod: true
             });
         });

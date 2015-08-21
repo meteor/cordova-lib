@@ -34,7 +34,11 @@ module.exports = function compile(options) {
     options.platforms.forEach(function(platform) {
         ret = ret.then(function() {
             var cmd = path.join(projectRoot, 'platforms', platform, 'cordova', 'build');
-            return superspawn.spawn(cmd, options.options, { stdio: 'inherit', printCommand: true, chmod: true });
+            return superspawn.spawn(cmd, options.options, {
+                stdio: options.silent ? 'pipe' : 'inherit', // hide script output in silent mode
+                printCommand: !!options.verbose, // print command only if --verbose specified
+                chmod: true
+            });
         });
     });
     ret = ret.then(function() {
