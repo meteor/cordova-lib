@@ -180,8 +180,8 @@ function runScriptViaChildProcessSpawn(script, context) {
 
     var execOpts = {
       cwd: opts.projectRoot,
-      printCommand: !!options.verbose, // print command only if --verbose specified,
-      stdio: options.silent ? 'pipe' : 'inherit', // hide script output in silent mode
+      printCommand: !!opts.verbose, // print command only if --verbose specified,
+      stdio: opts.silent ? 'pipe' : 'inherit', // hide script output in silent mode
     };
 
     execOpts.env = {};
